@@ -492,7 +492,8 @@ salary-dashboard/
 | 24/09/2026 | 08–17 | DONE | Hoàn thiện 4 trang, Pearson correlation và hồi quy tuyến tính đơn biến | Codex |
 | 24/09/2026 | 18–22 | DONE | Empty/error states, test, benchmark, quality notes và findings | Codex |
 | 24/09/2026 | 07, 20 | DONE | Phát hiện filter mất khi chuyển page; chuyển sidebar lên entrypoint chung và retest filter/reset/export | Codex |
-| 24/09/2026 | 23–24 | DONE | Thêm báo cáo, ảnh giao diện, biên bản nghiệm thu; 19 test PASS; người dùng xác nhận deploy thành công | Codex + người dùng |
+| 24/09/2026 | 23–24 | DONE | Thêm báo cáo, ảnh giao diện, biên bản nghiệm thu; 20 test PASS; người dùng xác nhận deploy thành công | Codex + người dùng |
+| 24/09/2026 | 20, 24 | DONE | Hotfix ImportError trên Cloud: page dùng trực tiếp API ổn định từ `utils.filters`; kiểm tra 4/4 trang từ repository root | Codex |
 
 ---
 

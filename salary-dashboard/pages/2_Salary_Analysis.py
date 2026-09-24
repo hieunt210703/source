@@ -2,8 +2,8 @@ import streamlit as st
 
 from utils.charts import comparison_bar, salary_boxplot
 from utils.config import DIMENSION_LABELS
+from utils.filters import FilterSpec, apply_filters
 from utils.ui import (
-    apply_shared_filters,
     load_prepared_data,
     render_empty_state,
     render_header,
@@ -13,7 +13,10 @@ from utils.ui import (
 
 
 data = load_prepared_data()
-filtered = apply_shared_filters(data)
+filtered = apply_filters(
+    data,
+    st.session_state.get("shared_filter_spec", FilterSpec()),
+)
 render_header("salary")
 render_page_heading(
     "Phân tích lương",

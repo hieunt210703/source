@@ -3,7 +3,7 @@
 ## Tự động
 
 - Lệnh: `python -m pytest -q`
-- Kết quả gần nhất: **19 passed**.
+- Kết quả gần nhất: **20 passed**.
 - Compile: `python -m compileall -q app.py pages utils tests` thành công.
 
 ## Phạm vi đã xác nhận
@@ -24,6 +24,8 @@
 - Filter Engineering giữ đúng 1.683 bản ghi khi chuyển trang.
 - CSV tải xuống có đúng 1.683 dòng và mọi dòng đều có `Department = Engineering`.
 - Reset filter trả giao diện về đủ 10.000 bản ghi và giữ trạng thái sau khi chuyển trang.
+- Import contract xác nhận mọi tên được import từ `utils.*` trong 4 page đều tồn tại.
+- Chạy từ repository root với entrypoint `salary-dashboard/app.py`: mở đủ 4/4 trang, không có ImportError, Streamlit exception hoặc console error.
 - Điều hướng mobile nằm trên một hàng gọn, nội dung dài xuống dòng và sidebar tự thu gọn.
 
 In-app Browser không khả dụng trong môi trường kiểm thử (`iab` không có browser instance), nên dùng Edge headless làm phương án kiểm thử tương đương tại localhost.

@@ -1,9 +1,9 @@
 import streamlit as st
 
 from utils.charts import department_donut, department_salary_bar, salary_histogram
+from utils.filters import FilterSpec, apply_filters
 from utils.metrics import calculate_kpis
 from utils.ui import (
-    apply_shared_filters,
     format_number,
     load_prepared_data,
     render_empty_state,
@@ -14,7 +14,10 @@ from utils.ui import (
 
 
 data = load_prepared_data()
-filtered = apply_shared_filters(data)
+filtered = apply_filters(
+    data,
+    st.session_state.get("shared_filter_spec", FilterSpec()),
+)
 render_header("overview")
 render_page_heading(
     "Tổng quan",

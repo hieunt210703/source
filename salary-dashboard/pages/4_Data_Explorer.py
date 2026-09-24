@@ -3,8 +3,8 @@ import re
 import streamlit as st
 
 from utils.config import REQUIRED_COLUMNS
+from utils.filters import FilterSpec, apply_filters
 from utils.ui import (
-    apply_shared_filters,
     format_number,
     load_prepared_data,
     render_empty_state,
@@ -14,7 +14,10 @@ from utils.ui import (
 
 
 data = load_prepared_data()
-filtered = apply_shared_filters(data)
+filtered = apply_filters(
+    data,
+    st.session_state.get("shared_filter_spec", FilterSpec()),
+)
 render_header("explorer")
 render_page_heading(
     "Khám phá dữ liệu",

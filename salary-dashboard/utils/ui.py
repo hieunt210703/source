@@ -354,12 +354,6 @@ def load_prepared_data(path: str | Path = DATA_PATH) -> pd.DataFrame:
         st.stop()
 
 
-def apply_shared_filters(df: pd.DataFrame) -> pd.DataFrame:
-    """Áp dụng filter state do entrypoint tạo, hoặc trả full data khi chạy page độc lập."""
-    spec = st.session_state.get("shared_filter_spec", FilterSpec())
-    return apply_filters(df, spec)
-
-
 def _sorted_values(df: pd.DataFrame, column: str) -> list[str]:
     return sorted(df[column].dropna().astype(str).unique().tolist())
 

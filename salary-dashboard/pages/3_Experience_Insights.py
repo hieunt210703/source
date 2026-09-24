@@ -9,9 +9,9 @@ from utils.charts import (
     experience_scatter,
     residual_plot,
 )
+from utils.filters import FilterSpec, apply_filters
 from utils.modeling import ModelingError, fit_simple_linear_regression, pearson_correlation
 from utils.ui import (
-    apply_shared_filters,
     format_number,
     format_pvalue,
     load_prepared_data,
@@ -24,7 +24,10 @@ from utils.ui import (
 
 
 data = load_prepared_data()
-filtered = apply_shared_filters(data)
+filtered = apply_filters(
+    data,
+    st.session_state.get("shared_filter_spec", FilterSpec()),
+)
 render_header("experience")
 render_page_heading(
     "Kinh nghiệm và mức lương",
