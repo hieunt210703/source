@@ -3,18 +3,18 @@ import streamlit as st
 from utils.charts import department_donut, department_salary_bar, salary_histogram
 from utils.metrics import calculate_kpis
 from utils.ui import (
+    apply_shared_filters,
     format_number,
     load_prepared_data,
     render_empty_state,
     render_header,
     render_kpi_cards,
     render_page_heading,
-    render_sidebar_filters,
 )
 
 
 data = load_prepared_data()
-_, filtered = render_sidebar_filters(data)
+filtered = apply_shared_filters(data)
 render_header("overview")
 render_page_heading(
     "Tổng quan",

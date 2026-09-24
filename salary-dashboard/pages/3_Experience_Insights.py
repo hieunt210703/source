@@ -11,6 +11,7 @@ from utils.charts import (
 )
 from utils.modeling import ModelingError, fit_simple_linear_regression, pearson_correlation
 from utils.ui import (
+    apply_shared_filters,
     format_number,
     format_pvalue,
     load_prepared_data,
@@ -19,12 +20,11 @@ from utils.ui import (
     render_kpi_cards,
     render_page_heading,
     render_section_heading,
-    render_sidebar_filters,
 )
 
 
 data = load_prepared_data()
-_, filtered = render_sidebar_filters(data)
+filtered = apply_shared_filters(data)
 render_header("experience")
 render_page_heading(
     "Kinh nghiệm và mức lương",

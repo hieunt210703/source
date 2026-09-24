@@ -3,7 +3,7 @@
 ## Tự động
 
 - Lệnh: `python -m pytest -q`
-- Kết quả: **17 passed**.
+- Kết quả gần nhất: **19 passed**.
 - Compile: `python -m compileall -q app.py pages utils tests` thành công.
 
 ## Phạm vi đã xác nhận
@@ -21,6 +21,9 @@
 - Mở thành công cả 4 trang; không có Streamlit exception hay console error.
 - Trang Kinh nghiệm hiển thị Pearson, phương trình hồi quy, R², MAE và RMSE.
 - Tìm kiếm `Merle Ingram` tại Data Explorer trả đúng 1 bản ghi.
+- Filter Engineering giữ đúng 1.683 bản ghi khi chuyển trang.
+- CSV tải xuống có đúng 1.683 dòng và mọi dòng đều có `Department = Engineering`.
+- Reset filter trả giao diện về đủ 10.000 bản ghi và giữ trạng thái sau khi chuyển trang.
 - Điều hướng mobile nằm trên một hàng gọn, nội dung dài xuống dòng và sidebar tự thu gọn.
 
 In-app Browser không khả dụng trong môi trường kiểm thử (`iab` không có browser instance), nên dùng Edge headless làm phương án kiểm thử tương đương tại localhost.

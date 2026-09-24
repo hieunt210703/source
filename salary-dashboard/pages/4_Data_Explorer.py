@@ -4,17 +4,17 @@ import streamlit as st
 
 from utils.config import REQUIRED_COLUMNS
 from utils.ui import (
+    apply_shared_filters,
     format_number,
     load_prepared_data,
     render_empty_state,
     render_header,
     render_page_heading,
-    render_sidebar_filters,
 )
 
 
 data = load_prepared_data()
-_, filtered = render_sidebar_filters(data)
+filtered = apply_shared_filters(data)
 render_header("explorer")
 render_page_heading(
     "Khám phá dữ liệu",

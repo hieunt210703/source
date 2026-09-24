@@ -26,9 +26,11 @@ Mở `http://localhost:8501` nếu trình duyệt không tự mở.
 
 ```powershell
 python -m pytest -q
+python scripts/audit_data.py
+python scripts/benchmark_core.py
 ```
 
-Test bao phủ schema loader, KPI chuẩn, filter kết hợp, nhóm tuổi/kinh nghiệm, biểu đồ, Pearson correlation, hồi quy tuyến tính và smoke test trang mặc định.
+Test bao phủ schema loader, KPI chuẩn, filter kết hợp, nhóm tuổi/kinh nghiệm, biểu đồ, Pearson correlation, hồi quy tuyến tính, script audit/benchmark và smoke test trang mặc định.
 
 ## Cấu trúc
 
@@ -51,6 +53,9 @@ salary-dashboard/
 │   ├── modeling.py
 │   └── ui.py
 ├── tests/
+├── scripts/
+│   ├── audit_data.py
+│   └── benchmark_core.py
 └── docs/
 ```
 

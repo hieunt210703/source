@@ -17,15 +17,22 @@ NAV_ITEMS = (
     ("explorer", "Khám phá dữ liệu", "pages/4_Data_Explorer.py"),
 )
 
-FILTER_KEYS = (
-    "filter_departments",
-    "filter_job_titles",
-    "filter_education",
-    "filter_locations",
-    "filter_genders",
-    "filter_salary",
-    "filter_experience",
-)
+def reset_filter_state(
+    salary_range: tuple[int, int],
+    experience_range: tuple[int, int],
+) -> None:
+    """Đưa widget và shared filter về giá trị mặc định trong callback."""
+    for key in (
+        "filter_departments",
+        "filter_job_titles",
+        "filter_education",
+        "filter_locations",
+        "filter_genders",
+    ):
+        st.session_state[key] = []
+    st.session_state["filter_salary"] = salary_range
+    st.session_state["filter_experience"] = experience_range
+    st.session_state["shared_filter_spec"] = FilterSpec()
 
 
 def inject_global_css() -> None:
@@ -347,11 +354,21 @@ def load_prepared_data(path: str | Path = DATA_PATH) -> pd.DataFrame:
         st.stop()
 
 
+def apply_shared_filters(df: pd.DataFrame) -> pd.DataFrame:
+    """Áp dụng filter state do entrypoint tạo, hoặc trả full data khi chạy page độc lập."""
+    spec = st.session_state.get("shared_filter_spec", FilterSpec())
+    return apply_filters(df, spec)
+
+
 def _sorted_values(df: pd.DataFrame, column: str) -> list[str]:
     return sorted(df[column].dropna().astype(str).unique().tolist())
 
 
 def render_sidebar_filters(df: pd.DataFrame) -> tuple[FilterSpec, pd.DataFrame]:
+    salary_min, salary_max = int(df["Salary"].min()), int(df["Salary"].max())
+    experience_min = int(df["Experience_Years"].min())
+    experience_max = int(df["Experience_Years"].max())
+
     with st.sidebar:
         st.markdown("## Bộ lọc dữ liệu")
         departments = st.multiselect(
@@ -385,29 +402,37 @@ def render_sidebar_filters(df: pd.DataFrame) -> tuple[FilterSpec, pd.DataFrame]:
             placeholder="Tất cả giới tính",
         )
 
-        salary_min, salary_max = int(df["Salary"].min()), int(df["Salary"].max())
         salary_range = st.slider(
             "Khoảng lương",
             min_value=salary_min,
             max_value=salary_max,
-            value=(salary_min, salary_max),
             step=5_000,
             key="filter_salary",
+            **(
+                {}
+                if "filter_salary" in st.session_state
+                else {"value": (salary_min, salary_max)}
+            ),
         )
-        experience_min = int(df["Experience_Years"].min())
-        experience_max = int(df["Experience_Years"].max())
         experience_range = st.slider(
             "Số năm kinh nghiệm",
             min_value=experience_min,
             max_value=experience_max,
-            value=(experience_min, experience_max),
             key="filter_experience",
+            **(
+                {}
+                if "filter_experience" in st.session_state
+                else {"value": (experience_min, experience_max)}
+            ),
         )
 
-        if st.button("Đặt lại bộ lọc", width="stretch", icon=":material/restart_alt:"):
-            for key in FILTER_KEYS:
-                st.session_state.pop(key, None)
-            st.rerun()
+        st.button(
+            "Đặt lại bộ lọc",
+            width="stretch",
+            icon=":material/restart_alt:",
+            on_click=reset_filter_state,
+            args=((salary_min, salary_max), (experience_min, experience_max)),
+        )
 
     spec = FilterSpec(
         departments=tuple(departments),
@@ -418,4 +443,6 @@ def render_sidebar_filters(df: pd.DataFrame) -> tuple[FilterSpec, pd.DataFrame]:
         salary_range=salary_range,
         experience_range=experience_range,
     )
-    return spec, apply_filters(df, spec)
+    filtered = apply_filters(df, spec)
+    st.session_state["shared_filter_spec"] = spec
+    return spec, filtered

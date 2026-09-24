@@ -6,6 +6,18 @@
 - `st.cache_data` được dùng cho bước đọc/validate CSV.
 - Các biểu đồ và mô hình chỉ tính lại khi trạng thái widget thay đổi.
 
+Benchmark ngày 24/09/2026 trên môi trường phát triển hiện tại, lấy trung vị 10 lần chạy (hồi quy 5 lần):
+
+| Tác vụ | Thời gian trung vị |
+|---|---:|
+| Đọc CSV và validate | 41,661 ms |
+| Tạo nhóm phân tích | 2,514 ms |
+| Tính KPI | 1,191 ms |
+| Lọc Engineering + Female | 3,249 ms |
+| Fit và đánh giá hồi quy | 25,177 ms |
+
+Có thể tái chạy bằng `python scripts/benchmark_core.py`. Kết quả phụ thuộc phần cứng và tải hệ thống; các số trên chỉ là bằng chứng thực nghiệm cho bộ dữ liệu hiện tại, không phải SLA.
+
 ## Trạng thái lỗi
 
 - Loader trả thông báo tiếng Việt cho file thiếu, parse lỗi, thiếu schema, null, ID trùng hoặc miền số không hợp lệ.

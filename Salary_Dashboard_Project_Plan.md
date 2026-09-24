@@ -84,36 +84,36 @@ Một phase chỉ được coi là DONE nếu: (1) checklist đã hoàn tất; (
 
 #### Phase 00 — Chốt mục tiêu và phạm vi
 
-**Status:** TODO  
+**Status:** DONE  
 **Phụ thuộc:** Không có.
 
-- [ ] Viết mục tiêu, đối tượng dùng và 6 câu hỏi phân tích chính.
-- [ ] Chốt 4 trang chức năng và danh sách ngoài phạm vi.
-- [ ] Lập danh sách KPI/biểu đồ mong muốn ở mức tên và mục đích.
+- [x] Viết mục tiêu, đối tượng dùng và 6 câu hỏi phân tích chính.
+- [x] Chốt 4 trang chức năng và danh sách ngoài phạm vi.
+- [x] Lập danh sách KPI/biểu đồ mong muốn ở mức tên và mục đích.
 
 **Đầu ra:** `docs/01_scope.md`.  
 **DoD:** Có bảng phạm vi rõ ràng; mỗi chức năng đều gắn với ít nhất một câu hỏi phân tích.
 
 #### Phase 01 — Audit dữ liệu gốc
 
-**Status:** TODO  
+**Status:** DONE  
 **Phụ thuộc:** Phase 00.
 
-- [ ] Đọc CSV, kiểm tra số dòng/cột, tên cột, kiểu dữ liệu, null và duplicate ID.
-- [ ] Khảo sát các giá trị danh mục và khoảng giá trị số.
-- [ ] Ghi lại các bất thường/rủi ro cần theo dõi, không xóa bản ghi một cách mặc định.
+- [x] Đọc CSV, kiểm tra số dòng/cột, tên cột, kiểu dữ liệu, null và duplicate ID.
+- [x] Khảo sát các giá trị danh mục và khoảng giá trị số.
+- [x] Ghi lại các bất thường/rủi ro cần theo dõi, không xóa bản ghi một cách mặc định.
 
 **Đầu ra:** `docs/02_data_audit.md` và script/notebook audit có thể chạy lại.  
 **DoD:** Có bảng audit tái tạo được từ CSV; số lượng bản ghi đầu vào được ghi nhận.
 
 #### Phase 02 — Data dictionary và quy tắc tính toán
 
-**Status:** TODO  
+**Status:** DONE  
 **Phụ thuộc:** Phase 01.
 
-- [ ] Mô tả ý nghĩa, kiểu dữ liệu và vai trò của 10 cột.
-- [ ] Chốt định nghĩa `employee_count`, `average_salary`, `median_salary`, `min_salary`, `max_salary`.
-- [ ] Chốt quy tắc hiển thị: đơn vị lương chưa xác thực; số thập phân; giá trị thiếu; mẫu số của tỷ lệ.
+- [x] Mô tả ý nghĩa, kiểu dữ liệu và vai trò của 10 cột.
+- [x] Chốt định nghĩa `employee_count`, `average_salary`, `median_salary`, `min_salary`, `max_salary`.
+- [x] Chốt quy tắc hiển thị: đơn vị lương chưa xác thực; số thập phân; giá trị thiếu; mẫu số của tỷ lệ.
 
 **Đầu ra:** `docs/03_data_dictionary.md`, `docs/04_metric_definitions.md`.  
 **DoD:** KPI có công thức và phạm vi tính toán; không còn thuật ngữ mơ hồ trong giao diện.
@@ -122,60 +122,60 @@ Một phase chỉ được coi là DONE nếu: (1) checklist đã hoàn tất; (
 
 #### Phase 03 — Khởi tạo project
 
-**Status:** TODO  
+**Status:** DONE  
 **Phụ thuộc:** Phase 00.
 
-- [ ] Tạo repository, virtual environment và `requirements.txt`.
-- [ ] Tạo cấu trúc `app.py`, `pages/`, `utils/`, `data/`, `tests/`, `docs/`.
-- [ ] Xây dựng trang Streamlit tối thiểu và xác nhận lệnh chạy hoạt động.
+- [x] Tạo repository, virtual environment và `requirements.txt`.
+- [x] Tạo cấu trúc `app.py`, `pages/`, `utils/`, `data/`, `tests/`, `docs/`.
+- [x] Xây dựng trang Streamlit tối thiểu và xác nhận lệnh chạy hoạt động.
 
 **Đầu ra:** project skeleton chạy được.  
 **DoD:** Một người khác có thể cài dependency và mở trang app từ hướng dẫn ngắn.
 
 #### Phase 04 — Module đọc và kiểm tra dữ liệu
 
-**Status:** TODO  
+**Status:** DONE  
 **Phụ thuộc:** Phase 01, 03.
 
-- [ ] Viết `load_data()` đọc CSV từ đường dẫn cấu hình, không hard-code đường dẫn máy cá nhân.
-- [ ] Kiểm tra các cột bắt buộc và kiểu dữ liệu cơ bản; trả lỗi dễ hiểu nếu sai schema/file thiếu.
-- [ ] Kiểm tra ID trùng, giá trị số không hợp lệ và các bất thường cần cảnh báo.
+- [x] Viết `load_data()` đọc CSV từ đường dẫn cấu hình, không hard-code đường dẫn máy cá nhân.
+- [x] Kiểm tra các cột bắt buộc và kiểu dữ liệu cơ bản; trả lỗi dễ hiểu nếu sai schema/file thiếu.
+- [x] Kiểm tra ID trùng, giá trị số không hợp lệ và các bất thường cần cảnh báo.
 
 **Đầu ra:** `utils/data_loader.py` và kiểm thử đầu vào cơ bản.  
 **DoD:** Đọc được dữ liệu đúng schema; lỗi đầu vào không gây crash khó hiểu.
 
 #### Phase 05 — Chuẩn hóa và bảo toàn dữ liệu
 
-**Status:** TODO  
+**Status:** DONE  
 **Phụ thuộc:** Phase 04.
 
-- [ ] Xác định rõ quy tắc ép kiểu/chuẩn hóa text nếu cần.
-- [ ] Giữ dữ liệu nguồn bất biến; hàm xử lý trả về dataframe mới.
-- [ ] Ghi nhận số bản ghi bị loại hoặc thay đổi nếu phát sinh xử lý; không chỉnh sửa ngầm.
+- [x] Xác định rõ quy tắc ép kiểu/chuẩn hóa text nếu cần.
+- [x] Giữ dữ liệu nguồn bất biến; hàm xử lý trả về dataframe mới.
+- [x] Ghi nhận số bản ghi bị loại hoặc thay đổi nếu phát sinh xử lý; không chỉnh sửa ngầm.
 
 **Đầu ra:** `utils/data_processing.py` và ghi chú quy tắc xử lý.  
 **DoD:** Input và output có thể đối chiếu; dữ liệu không bị mất im lặng.
 
 #### Phase 06 — Xây dựng các hàm thống kê
 
-**Status:** TODO  
+**Status:** DONE  
 **Phụ thuộc:** Phase 02, 05.
 
-- [ ] Viết hàm KPI cơ bản cho một dataframe bất kỳ.
-- [ ] Viết hàm tổng hợp theo một trường danh mục: số nhân viên, mean, median, min, max.
-- [ ] Viết hàm tạo nhóm kinh nghiệm phục vụ biểu đồ (quy tắc nhóm phải ghi tài liệu).
+- [x] Viết hàm KPI cơ bản cho một dataframe bất kỳ.
+- [x] Viết hàm tổng hợp theo một trường danh mục: số nhân viên, mean, median, min, max.
+- [x] Viết hàm tạo nhóm kinh nghiệm phục vụ biểu đồ (quy tắc nhóm phải ghi tài liệu).
 
 **Đầu ra:** `utils/metrics.py`.  
 **DoD:** Các hàm chạy độc lập với Streamlit và trả kết quả đúng trên mẫu dữ liệu kiểm thử.
 
 #### Phase 07 — Bộ lọc dùng chung
 
-**Status:** TODO  
+**Status:** DONE  
 **Phụ thuộc:** Phase 05, 06.
 
-- [ ] Tạo hàm lọc theo phòng ban, chức danh, học vấn, địa điểm, khoảng lương và kinh nghiệm.
-- [ ] Thiết kế filter state dùng chung giữa các trang; xác định hành vi mặc định và reset.
-- [ ] Quy định KPI, biểu đồ, bảng và CSV đều dùng **cùng một dataframe đã lọc**.
+- [x] Tạo hàm lọc theo phòng ban, chức danh, học vấn, địa điểm, khoảng lương và kinh nghiệm.
+- [x] Thiết kế filter state dùng chung giữa các trang; xác định hành vi mặc định và reset.
+- [x] Quy định KPI, biểu đồ, bảng và CSV đều dùng **cùng một dataframe đã lọc**.
 
 **Đầu ra:** `utils/filters.py` và quy tắc filter trong tài liệu.  
 **DoD:** Kết hợp nhiều bộ lọc hoạt động chính xác; reset trả về dữ liệu ban đầu.
@@ -184,123 +184,123 @@ Một phase chỉ được coi là DONE nếu: (1) checklist đã hoàn tất; (
 
 #### Phase 08 — App shell và điều hướng
 
-**Status:** TODO  
+**Status:** DONE  
 **Phụ thuộc:** Phase 03, 07.
 
-- [ ] Tạo 4 trang theo kiến trúc đã chốt và menu điều hướng.
-- [ ] Tạo sidebar bộ lọc dùng chung và khu vực hiển thị số bản ghi sau lọc.
-- [ ] Tạo bộ component/formatter dùng chung cho tiêu đề, số liệu và chú thích.
+- [x] Tạo 4 trang theo kiến trúc đã chốt và menu điều hướng.
+- [x] Tạo sidebar bộ lọc dùng chung và khu vực hiển thị số bản ghi sau lọc.
+- [x] Tạo bộ component/formatter dùng chung cho tiêu đề, số liệu và chú thích.
 
 **Đầu ra:** điều hướng hoàn chỉnh, UI khung nhất quán.  
 **DoD:** Chuyển trang không mất trạng thái filter ngoài ý muốn; chưa cần hoàn thiện tất cả biểu đồ.
 
 #### Phase 09 — Overview: KPI
 
-**Status:** TODO  
+**Status:** DONE  
 **Phụ thuộc:** Phase 06, 08.
 
-- [ ] Hiển thị tổng nhân viên, lương trung bình, trung vị, thấp nhất và cao nhất.
-- [ ] Format số nhất quán; gắn ghi chú đơn vị lương chưa xác thực.
-- [ ] Kiểm tra KPI thay đổi theo bộ lọc và xử lý trường hợp không có bản ghi.
+- [x] Hiển thị tổng nhân viên, lương trung bình, trung vị, thấp nhất và cao nhất.
+- [x] Format số nhất quán; gắn ghi chú đơn vị lương chưa xác thực.
+- [x] Kiểm tra KPI thay đổi theo bộ lọc và xử lý trường hợp không có bản ghi.
 
 **Đầu ra:** phần KPI của trang Overview.  
 **DoD:** KPI đối chiếu đúng với kết quả Pandas cho full data và ít nhất hai nhóm đã lọc.
 
 #### Phase 10 — Overview: biểu đồ tổng quan
 
-**Status:** TODO  
+**Status:** DONE  
 **Phụ thuộc:** Phase 09.
 
-- [ ] Tạo histogram phân bố lương.
-- [ ] Tạo biểu đồ số lượng/tỷ trọng nhân viên theo phòng ban.
-- [ ] Tạo biểu đồ lương trung bình theo phòng ban kèm số lượng mẫu khi cần.
+- [x] Tạo histogram phân bố lương.
+- [x] Tạo biểu đồ số lượng/tỷ trọng nhân viên theo phòng ban.
+- [x] Tạo biểu đồ lương trung bình theo phòng ban kèm số lượng mẫu khi cần.
 
 **Đầu ra:** trang Overview hoạt động đầy đủ.  
 **DoD:** Cả ba biểu đồ nhận dataframe đã lọc; tiêu đề và nhãn trục rõ ràng.
 
 #### Phase 11 — Salary Analysis: so sánh tổ chức
 
-**Status:** TODO  
+**Status:** DONE  
 **Phụ thuộc:** Phase 06, 08.
 
-- [ ] Tạo biểu đồ so sánh mean/median salary theo phòng ban.
-- [ ] Tạo biểu đồ so sánh mean/median salary theo chức danh.
-- [ ] Hiển thị cỡ mẫu mỗi nhóm để tránh diễn giải nhóm quá ít bản ghi.
+- [x] Tạo biểu đồ so sánh mean/median salary theo phòng ban.
+- [x] Tạo biểu đồ so sánh mean/median salary theo chức danh.
+- [x] Hiển thị cỡ mẫu mỗi nhóm để tránh diễn giải nhóm quá ít bản ghi.
 
 **Đầu ra:** hai biểu đồ đầu của Salary Analysis.  
 **DoD:** Giá trị biểu đồ khớp hàm tổng hợp; filter toàn cục có hiệu lực.
 
 #### Phase 12 — Salary Analysis: học vấn và địa điểm
 
-**Status:** TODO  
+**Status:** DONE  
 **Phụ thuộc:** Phase 11.
 
-- [ ] Tạo biểu đồ lương theo trình độ học vấn.
-- [ ] Tạo biểu đồ lương theo địa điểm làm việc.
-- [ ] Bổ sung tùy chọn sắp xếp hoặc chuyển mean/median nếu UI còn đơn giản.
+- [x] Tạo biểu đồ lương theo trình độ học vấn.
+- [x] Tạo biểu đồ lương theo địa điểm làm việc.
+- [x] Bổ sung tùy chọn sắp xếp hoặc chuyển mean/median nếu UI còn đơn giản.
 
 **Đầu ra:** hoàn thiện các nhóm so sánh chính trên Salary Analysis.  
 **DoD:** Có thể đọc được giá trị, nhóm và cỡ mẫu; không gọi chênh lệch là quan hệ nhân quả.
 
 #### Phase 13 — Salary Analysis: độ phân tán
 
-**Status:** TODO  
+**Status:** DONE  
 **Phụ thuộc:** Phase 11.
 
-- [ ] Thêm box plot phân bố lương theo một chiều phân nhóm phù hợp.
-- [ ] Viết chú thích ngắn giải thích median, tứ phân vị và outlier trên biểu đồ.
-- [ ] Kiểm tra hiển thị khi bộ lọc chỉ còn một nhóm hoặc một vài bản ghi.
+- [x] Thêm box plot phân bố lương theo một chiều phân nhóm phù hợp.
+- [x] Viết chú thích ngắn giải thích median, tứ phân vị và outlier trên biểu đồ.
+- [x] Kiểm tra hiển thị khi bộ lọc chỉ còn một nhóm hoặc một vài bản ghi.
 
 **Đầu ra:** biểu đồ phân bố/biến thiên lương.  
 **DoD:** Biểu đồ không lỗi ở nhóm nhỏ và không đánh đồng mean với median.
 
 #### Phase 14 — Experience Insights: kinh nghiệm
 
-**Status:** TODO  
+**Status:** DONE  
 **Phụ thuộc:** Phase 06, 08.
 
-- [ ] Tạo scatter plot `Experience_Years` so với `Salary`.
-- [ ] Tạo biểu đồ mức lương theo nhóm kinh nghiệm đã định nghĩa.
-- [ ] Tính/hiển thị Pearson correlation gồm hệ số và p-value nếu đủ dữ liệu biến thiên; nêu rõ đây là mô tả, không chứng minh nguyên nhân.
-- [ ] Chia dữ liệu 80/20 với `random_state=42`, fit hồi quy tuyến tính đơn biến `Experience_Years → Salary` chỉ trên tập train.
-- [ ] Hiển thị phương trình hồi quy, R² train/test, MAE và RMSE trên tập test cùng đường hồi quy.
-- [ ] Nếu dữ liệu sau lọc quá ít hoặc không có biến thiên, không fit mô hình và hiển thị thông báo phù hợp.
+- [x] Tạo scatter plot `Experience_Years` so với `Salary`.
+- [x] Tạo biểu đồ mức lương theo nhóm kinh nghiệm đã định nghĩa.
+- [x] Tính/hiển thị Pearson correlation gồm hệ số và p-value nếu đủ dữ liệu biến thiên; nêu rõ đây là mô tả, không chứng minh nguyên nhân.
+- [x] Chia dữ liệu 80/20 với `random_state=42`, fit hồi quy tuyến tính đơn biến `Experience_Years → Salary` chỉ trên tập train.
+- [x] Hiển thị phương trình hồi quy, R² train/test, MAE và RMSE trên tập test cùng đường hồi quy.
+- [x] Nếu dữ liệu sau lọc quá ít hoặc không có biến thiên, không fit mô hình và hiển thị thông báo phù hợp.
 
 **Đầu ra:** phần phân tích kinh nghiệm và mô hình hồi quy tuyến tính đơn biến.  
 **DoD:** Biểu đồ, tương quan và mô hình dùng cùng dữ liệu sau lọc; mô hình không rò rỉ dữ liệu; chỉ số train/test tái lập được; xử lý trường hợp không đủ dữ liệu.
 
 #### Phase 15 — Experience Insights: độ tuổi
 
-**Status:** TODO  
+**Status:** DONE  
 **Phụ thuộc:** Phase 14.
 
-- [ ] Tạo scatter plot `Age` so với `Salary`.
-- [ ] Thêm cách phân nhóm tuổi minh bạch nếu cần so sánh rõ hơn.
-- [ ] Viết ghi chú tránh suy luận tuổi/kinh nghiệm là nguyên nhân trực tiếp tạo ra mức lương.
+- [x] Tạo scatter plot `Age` so với `Salary`.
+- [x] Thêm cách phân nhóm tuổi minh bạch nếu cần so sánh rõ hơn.
+- [x] Viết ghi chú tránh suy luận tuổi/kinh nghiệm là nguyên nhân trực tiếp tạo ra mức lương.
 
 **Đầu ra:** trang Experience Insights hoàn chỉnh.  
 **DoD:** Các biểu đồ rõ nhãn, tương thích filter và có chú thích giới hạn diễn giải; mô hình chỉ là minh họa trên bộ dữ liệu hiện tại, không dùng để quyết định lương thực tế.
 
 #### Phase 16 — Data Explorer: tra cứu
 
-**Status:** TODO  
+**Status:** DONE  
 **Phụ thuộc:** Phase 07, 08.
 
-- [ ] Hiển thị bảng dữ liệu sau lọc với các cột phù hợp.
-- [ ] Bổ sung tìm kiếm theo `Employee_ID` hoặc `Name`.
-- [ ] Hiển thị số dòng tìm được và thông báo nếu không có kết quả.
+- [x] Hiển thị bảng dữ liệu sau lọc với các cột phù hợp.
+- [x] Bổ sung tìm kiếm theo `Employee_ID` hoặc `Name`.
+- [x] Hiển thị số dòng tìm được và thông báo nếu không có kết quả.
 
 **Đầu ra:** trang tra cứu hoạt động.  
 **DoD:** Tìm kiếm kết hợp được với filter; bảng không hiện dữ liệu ngoài điều kiện đã chọn.
 
 #### Phase 17 — Data Explorer: xuất dữ liệu
 
-**Status:** TODO  
+**Status:** DONE  
 **Phụ thuộc:** Phase 16.
 
-- [ ] Thêm nút tải CSV của **kết quả đang lọc/tìm kiếm**.
-- [ ] Định nghĩa thứ tự cột, tên file và encoding UTF-8 phù hợp.
-- [ ] Kiểm tra số dòng/nội dung file tải về so với bảng hiện tại.
+- [x] Thêm nút tải CSV của **kết quả đang lọc/tìm kiếm**.
+- [x] Định nghĩa thứ tự cột, tên file và encoding UTF-8 phù hợp.
+- [x] Kiểm tra số dòng/nội dung file tải về so với bảng hiện tại.
 
 **Đầu ra:** tính năng download CSV.  
 **DoD:** Không xuất nhầm full data khi đang lọc; xử lý kết quả rỗng có chủ đích.
@@ -309,49 +309,49 @@ Một phase chỉ được coi là DONE nếu: (1) checklist đã hoàn tất; (
 
 #### Phase 18 — UX, trạng thái rỗng và lỗi
 
-**Status:** TODO  
+**Status:** DONE  
 **Phụ thuộc:** Phase 09–17.
 
-- [ ] Thống nhất format số, nhãn, màu, khoảng cách và chú thích trên 4 trang.
-- [ ] Hiển thị empty state cho bộ lọc không có dữ liệu; không để biểu đồ/KPI lỗi hoặc gây hiểu sai.
-- [ ] Hiển thị thông báo dễ hiểu khi file CSV không tồn tại, sai schema hoặc đọc thất bại.
+- [x] Thống nhất format số, nhãn, màu, khoảng cách và chú thích trên 4 trang.
+- [x] Hiển thị empty state cho bộ lọc không có dữ liệu; không để biểu đồ/KPI lỗi hoặc gây hiểu sai.
+- [x] Hiển thị thông báo dễ hiểu khi file CSV không tồn tại, sai schema hoặc đọc thất bại.
 
 **Đầu ra:** UI nhất quán và các trạng thái ngoại lệ đã xử lý.  
 **DoD:** Có thể demo cả luồng thành công lẫn luồng lỗi có kiểm soát.
 
 #### Phase 19 — Unit test cho logic dữ liệu
 
-**Status:** TODO  
+**Status:** DONE  
 **Phụ thuộc:** Phase 04–07, 14.
 
-- [ ] Test loader/schema và các tình huống dữ liệu lỗi bằng fixture nhỏ.
-- [ ] Test KPI/tổng hợp: full data, nhóm đã lọc, dataframe rỗng và nhóm một bản ghi.
-- [ ] Test filter kết hợp, reset và phân nhóm kinh nghiệm.
-- [ ] Test hồi quy tuyến tính với split cố định, kiểm tra phương trình và các thang đo R², MAE, RMSE.
+- [x] Test loader/schema và các tình huống dữ liệu lỗi bằng fixture nhỏ.
+- [x] Test KPI/tổng hợp: full data, nhóm đã lọc, dataframe rỗng và nhóm một bản ghi.
+- [x] Test filter kết hợp, reset và phân nhóm kinh nghiệm.
+- [x] Test hồi quy tuyến tính với split cố định, kiểm tra phương trình và các thang đo R², MAE, RMSE.
 
 **Đầu ra:** thư mục `tests/` với các test tự động.  
 **DoD:** `pytest` chạy thành công; phép tính không phụ thuộc thao tác thủ công trên UI.
 
 #### Phase 20 — Kiểm thử tích hợp 4 trang
 
-**Status:** TODO  
+**Status:** DONE  
 **Phụ thuộc:** Phase 18, 19.
 
-- [ ] Kiểm tra flow mở app → đổi filter → chuyển trang → xem KPI/chart/table.
-- [ ] Kiểm tra search và export; đối chiếu giá trị sau lọc giữa các thành phần.
-- [ ] Lập danh sách bug, mức độ nghiêm trọng, kết quả retest và regression.
+- [x] Kiểm tra flow mở app → đổi filter → chuyển trang → xem KPI/chart/table.
+- [x] Kiểm tra search và export; đối chiếu giá trị sau lọc giữa các thành phần.
+- [x] Lập danh sách bug, mức độ nghiêm trọng, kết quả retest và regression.
 
 **Đầu ra:** `docs/05_test_cases.md`, `docs/06_test_results.md`.  
 **DoD:** Các luồng chính PASS; không còn bug blocker/critical chưa xử lý.
 
 #### Phase 21 — Hiệu năng và an toàn dữ liệu
 
-**Status:** TODO  
+**Status:** DONE  
 **Phụ thuộc:** Phase 20.
 
-- [ ] Dùng `st.cache_data` hợp lý cho đọc/tiền xử lý dữ liệu; tránh tính lại không cần thiết.
-- [ ] Kiểm tra app với 10.000 dòng, thao tác filter và chuyển trang; ghi lại kết quả thực nghiệm thay vì tự đặt số liệu.
-- [ ] Kiểm tra không commit secrets; quyết định cách chia sẻ dữ liệu có `Name` khi public repository/demo.
+- [x] Dùng `st.cache_data` hợp lý cho đọc/tiền xử lý dữ liệu; tránh tính lại không cần thiết.
+- [x] Kiểm tra app với 10.000 dòng, thao tác filter và chuyển trang; ghi lại kết quả thực nghiệm thay vì tự đặt số liệu.
+- [x] Kiểm tra không commit secrets; quyết định cách chia sẻ dữ liệu có `Name` khi public repository/demo.
 
 **Đầu ra:** `docs/07_quality_notes.md` và các chỉnh sửa cần thiết.  
 **DoD:** Luồng chính đáp ứng được khi demo; rủi ro chia sẻ dữ liệu đã được đánh giá.
@@ -360,36 +360,36 @@ Một phase chỉ được coi là DONE nếu: (1) checklist đã hoàn tất; (
 
 #### Phase 22 — Tổng hợp insight và giới hạn nghiên cứu
 
-**Status:** TODO  
+**Status:** DONE  
 **Phụ thuộc:** Phase 20.
 
-- [ ] Chọn các biểu đồ/KPI và kết quả hồi quy thể hiện câu trả lời cho 6 câu hỏi phân tích.
-- [ ] Viết nhận xét dựa trên số liệu thực tế đã kiểm tra; phân biệt mô tả và suy luận.
-- [ ] Nêu rõ các giới hạn: thiếu thời gian thu thập, đơn vị/kỳ lương chưa xác thực, nguồn gốc dữ liệu chưa xác minh, không suy diễn nhân quả.
+- [x] Chọn các biểu đồ/KPI và kết quả hồi quy thể hiện câu trả lời cho 6 câu hỏi phân tích.
+- [x] Viết nhận xét dựa trên số liệu thực tế đã kiểm tra; phân biệt mô tả và suy luận.
+- [x] Nêu rõ các giới hạn: thiếu thời gian thu thập, đơn vị/kỳ lương chưa xác thực, nguồn gốc dữ liệu chưa xác minh, không suy diễn nhân quả.
 
 **Đầu ra:** `docs/08_findings.md`.  
 **DoD:** Mỗi kết luận đều truy ngược được về biểu đồ/bảng và điều kiện lọc.
 
 #### Phase 23 — Tài liệu sử dụng và báo cáo
 
-**Status:** TODO  
+**Status:** DONE  
 **Phụ thuộc:** Phase 21, 22.
 
-- [ ] Viết README: môi trường, cách cài, lệnh chạy, cấu trúc thư mục và thao tác cơ bản.
-- [ ] Hoàn thiện nội dung tiểu luận: bài toán → dữ liệu → phương pháp → thiết kế → triển khai → kiểm thử → kết quả → hạn chế.
-- [ ] Chuẩn bị ảnh chụp giao diện, bảng KPI và minh họa luồng chức năng.
+- [x] Viết README: môi trường, cách cài, lệnh chạy, cấu trúc thư mục và thao tác cơ bản.
+- [x] Hoàn thiện nội dung tiểu luận: bài toán → dữ liệu → phương pháp → thiết kế → triển khai → kiểm thử → kết quả → hạn chế.
+- [x] Chuẩn bị ảnh chụp giao diện, bảng KPI và minh họa luồng chức năng.
 
 **Đầu ra:** `README.md` và bản thảo báo cáo.  
 **DoD:** Người khác có thể dựng ứng dụng từ source và hiểu các kết quả đã trình bày.
 
 #### Phase 24 — Nghiệm thu phiên bản lõi
 
-**Status:** TODO  
+**Status:** DONE  
 **Phụ thuộc:** Phase 23.
 
-- [ ] Chạy ứng dụng từ môi trường sạch theo README.
-- [ ] Thực hiện checklist acceptance và lưu kết quả cuối cùng.
-- [ ] Đóng gói source/tài liệu; ghi danh sách issue còn lại và backlog tương lai.
+- [x] Chạy ứng dụng từ môi trường sạch theo README.
+- [x] Thực hiện checklist acceptance và lưu kết quả cuối cùng.
+- [x] Đóng gói source/tài liệu; ghi danh sách issue còn lại và backlog tương lai.
 
 **Đầu ra:** bản bàn giao/demo của MVP.  
 **DoD:** Tất cả acceptance criteria ở Mục 5 đạt; không còn bug blocker/critical.
@@ -439,18 +439,18 @@ salary-dashboard/
 
 | ID | Tiêu chí kiểm tra | Cách xác nhận | Trạng thái |
 |---|---|---|---|
-| AC-01 | Đọc được file CSV đúng schema, có thông báo khi dữ liệu không hợp lệ | Chạy full data + fixture lỗi | TODO |
-| AC-02 | KPI full data đối chiếu đúng: 10.000 dòng; mean 115381.5; min 25000; max 215000; median 120000 | Đối chiếu trực tiếp Pandas | TODO |
-| AC-03 | Bộ lọc dùng chung trên cả 4 trang | Lọc 2 điều kiện, chuyển trang | TODO |
-| AC-04 | KPI, chart và table dựa vào cùng tập dữ liệu sau lọc | Đối chiếu số bản ghi/kết quả nhóm | TODO |
-| AC-05 | Overview có KPI, histogram và biểu đồ phòng ban | Demo chức năng | TODO |
-| AC-06 | Salary Analysis có so sánh phòng ban, chức danh, học vấn, địa điểm và phân bố | Demo chức năng | TODO |
-| AC-07 | Experience Insights có phân tích kinh nghiệm, tuổi, Pearson correlation và hồi quy tuyến tính `Experience_Years → Salary` với R², MAE, RMSE trên tập test | Demo chức năng + đối chiếu scikit-learn | TODO |
-| AC-08 | Data Explorer tìm kiếm/lọc và xuất đúng CSV kết quả | So sánh file export và bảng | TODO |
-| AC-09 | Data rỗng, file thiếu, schema sai không gây crash khó hiểu | Test các tình huống lỗi | TODO |
-| AC-10 | Có test logic và kết quả kiểm thử tích hợp | Chạy pytest + biên bản test | TODO |
-| AC-11 | README đủ để cài và chạy lại | Thử môi trường sạch | TODO |
-| AC-12 | Có nhận xét số liệu cùng giới hạn nghiên cứu | Review nội dung báo cáo | TODO |
+| AC-01 | Đọc được file CSV đúng schema, có thông báo khi dữ liệu không hợp lệ | Chạy full data + fixture lỗi | PASS |
+| AC-02 | KPI full data đối chiếu đúng: 10.000 dòng; mean 115381.5; min 25000; max 215000; median 120000 | Đối chiếu trực tiếp Pandas | PASS |
+| AC-03 | Bộ lọc dùng chung trên cả 4 trang | Lọc 2 điều kiện, chuyển trang | PASS |
+| AC-04 | KPI, chart và table dựa vào cùng tập dữ liệu sau lọc | Đối chiếu số bản ghi/kết quả nhóm | PASS |
+| AC-05 | Overview có KPI, histogram và biểu đồ phòng ban | Demo chức năng | PASS |
+| AC-06 | Salary Analysis có so sánh phòng ban, chức danh, học vấn, địa điểm và phân bố | Demo chức năng | PASS |
+| AC-07 | Experience Insights có phân tích kinh nghiệm, tuổi, Pearson correlation và hồi quy tuyến tính `Experience_Years → Salary` với R², MAE, RMSE trên tập test | Demo chức năng + đối chiếu scikit-learn | PASS |
+| AC-08 | Data Explorer tìm kiếm/lọc và xuất đúng CSV kết quả | So sánh file export và bảng | PASS |
+| AC-09 | Data rỗng, file thiếu, schema sai không gây crash khó hiểu | Test các tình huống lỗi | PASS |
+| AC-10 | Có test logic và kết quả kiểm thử tích hợp | Chạy pytest + biên bản test | PASS |
+| AC-11 | README đủ để cài và chạy lại | Thử môi trường sạch | PASS |
+| AC-12 | Có nhận xét số liệu cùng giới hạn nghiên cứu | Review nội dung báo cáo | PASS |
 
 ## 6. Mốc bàn giao theo năng lực, không theo ngày
 
@@ -487,8 +487,13 @@ salary-dashboard/
 
 | Ngày cập nhật | Phase | Trạng thái | Kết quả / blocker / quyết định | Người thực hiện |
 |---|---|---|---|---|
-| — | 00 | TODO | Khởi tạo kế hoạch | — |
+| 24/09/2026 | 00–02 | DONE | Chốt scope; audit 10.000 × 10; hoàn thiện data dictionary và metric definitions | Codex |
+| 24/09/2026 | 03–07 | DONE | Hoàn thiện project skeleton, loader, processing, metrics và shared filters | Codex |
+| 24/09/2026 | 08–17 | DONE | Hoàn thiện 4 trang, Pearson correlation và hồi quy tuyến tính đơn biến | Codex |
+| 24/09/2026 | 18–22 | DONE | Empty/error states, test, benchmark, quality notes và findings | Codex |
+| 24/09/2026 | 07, 20 | DONE | Phát hiện filter mất khi chuyển page; chuyển sidebar lên entrypoint chung và retest filter/reset/export | Codex |
+| 24/09/2026 | 23–24 | DONE | Thêm báo cáo, ảnh giao diện, biên bản nghiệm thu; 19 test PASS; người dùng xác nhận deploy thành công | Codex + người dùng |
 
 ---
 
-**Điểm bắt đầu đề xuất:** Phase 00 → 01 → 02. Sau khi data dictionary và metric definitions ổn định, triển khai bộ xử lý dữ liệu trước khi đầu tư vào UI. Không dùng mốc thời gian để thay thế cho DoD.
+**Trạng thái hiện tại:** MVP đã hoàn thành Phase 00–24 và đạt 12/12 acceptance criteria. Công việc tiếp theo chỉ lấy từ backlog sau phiên bản lõi khi có nhu cầu rõ ràng; ưu tiên xác nhận/ẩn danh dữ liệu trước khi chia sẻ công khai.

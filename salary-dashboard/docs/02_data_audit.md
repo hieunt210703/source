@@ -2,6 +2,12 @@
 
 Nguồn kiểm tra: `data/Employers_data.csv`.
 
+Tái tạo kết quả từ thư mục gốc dự án:
+
+```powershell
+python scripts/audit_data.py
+```
+
 | Kiểm tra | Kết quả |
 |---|---:|
 | Số dòng | 10.000 |

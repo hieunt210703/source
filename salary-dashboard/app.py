@@ -1,6 +1,6 @@
 import streamlit as st
 
-from utils.ui import inject_global_css
+from utils.ui import inject_global_css, load_prepared_data, render_sidebar_filters
 
 
 st.set_page_config(
@@ -10,6 +10,11 @@ st.set_page_config(
     initial_sidebar_state="auto",
 )
 inject_global_css()
+
+# Sidebar được render tại entrypoint để widget có cùng identity trên mọi page.
+# Các page chỉ đọc shared_filter_spec và áp dụng lên cùng dataset đã cache.
+shared_data = load_prepared_data()
+render_sidebar_filters(shared_data)
 
 navigation = st.navigation(
     [
