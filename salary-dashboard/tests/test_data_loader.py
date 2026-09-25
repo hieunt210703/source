@@ -4,7 +4,7 @@ import pandas as pd
 import pytest
 
 from utils.config import DATA_PATH, REQUIRED_COLUMNS
-from utils.data_loader import DataValidationError, load_data, validate_data
+from utils.data_loader import DataValidationError, load_data, load_uploaded_data, validate_data
 from utils.data_processing import audit_data, prepare_data
 
 
@@ -38,6 +38,30 @@ def test_load_data_reports_missing_file(tmp_path: Path) -> None:
         load_data(tmp_path / "missing.csv")
 
 
+def test_uploaded_csv_is_validated(sample_data: pd.DataFrame) -> None:
+    uploaded = load_uploaded_data(sample_data.to_csv(index=False).encode("utf-8-sig"))
+    assert uploaded.shape == sample_data.shape
+    assert list(uploaded.columns) == list(REQUIRED_COLUMNS)
+
+
+def test_uploaded_csv_rejects_empty_file() -> None:
+    with pytest.raises(DataValidationError, match="rỗng"):
+        load_uploaded_data(b"")
+
+
+def test_validate_data_rejects_blank_text_and_fractional_salary(sample_data: pd.DataFrame) -> None:
+    blank_name = sample_data.copy()
+    blank_name.loc[0, "Name"] = "   "
+    with pytest.raises(DataValidationError, match="giá trị thiếu"):
+        validate_data(blank_name)
+
+    fractional_salary = sample_data.copy()
+    fractional_salary["Salary"] = fractional_salary["Salary"].astype(float)
+    fractional_salary.loc[0, "Salary"] = 30_000.5
+    with pytest.raises(DataValidationError, match="số nguyên"):
+        validate_data(fractional_salary)
+
+
 def test_prepare_data_adds_documented_groups(sample_data: pd.DataFrame) -> None:
     prepared = prepare_data(validate_data(sample_data))
     assert prepared["Experience_Group"].astype(str).tolist() == [
@@ -49,3 +73,11 @@ def test_prepare_data_adds_documented_groups(sample_data: pd.DataFrame) -> None:
         "31+",
     ]
     assert prepared["Age_Group"].notna().all()
+
+
+def test_prepare_data_covers_full_valid_age_range(sample_data: pd.DataFrame) -> None:
+    age_edges = sample_data.copy()
+    age_edges.loc[0, ["Age", "Experience_Years"]] = [15, 0]
+    age_edges.loc[1, ["Age", "Experience_Years"]] = [100, 37]
+    prepared = prepare_data(validate_data(age_edges))
+    assert prepared["Age_Group"].astype(str).iloc[:2].tolist() == ["15-20", "61-100"]

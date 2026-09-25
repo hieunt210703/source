@@ -1,11 +1,11 @@
+from hashlib import sha256
 from html import escape
 from pathlib import Path
 
 import pandas as pd
 import streamlit as st
 
-from utils.config import DATA_PATH
-from utils.data_loader import DataValidationError, load_data
+from utils.data_loader import load_uploaded_data
 from utils.data_processing import prepare_data
 from utils.filters import FilterSpec, apply_filters
 
@@ -33,23 +33,70 @@ KPI_ICONS = {
     "RMSE": ":material/analytics:",
 }
 
+CATEGORY_FILTER_KEYS = (
+    "filter_departments",
+    "filter_job_titles",
+    "filter_education",
+    "filter_locations",
+    "filter_genders",
+)
+FILTER_STATE_KEYS = CATEGORY_FILTER_KEYS + (
+    "filter_salary",
+    "filter_experience",
+)
+
 
 def reset_filter_state(
     salary_range: tuple[int, int],
     experience_range: tuple[int, int],
 ) -> None:
     """Đưa widget và shared filter về giá trị mặc định trong callback."""
-    for key in (
-        "filter_departments",
-        "filter_job_titles",
-        "filter_education",
-        "filter_locations",
-        "filter_genders",
-    ):
+    for key in CATEGORY_FILTER_KEYS:
         st.session_state[key] = []
     st.session_state["filter_salary"] = salary_range
     st.session_state["filter_experience"] = experience_range
     st.session_state["shared_filter_spec"] = FilterSpec()
+
+
+def clear_upload_state() -> None:
+    """Bỏ dữ liệu phiên và bộ lọc khi file bị gỡ hoặc không hợp lệ."""
+    keys = (
+        *FILTER_STATE_KEYS,
+        "shared_filter_spec",
+        "uploaded_data",
+        "uploaded_digest",
+        "uploaded_filename",
+    )
+    for key in keys:
+        st.session_state.pop(key, None)
+
+
+def activate_uploaded_data(filename: str, contents: bytes) -> pd.DataFrame:
+    """Kiểm tra file mới một lần và chia sẻ dữ liệu đã chuẩn bị giữa các trang."""
+    digest = sha256(contents).hexdigest()
+    if (
+        digest != st.session_state.get("uploaded_digest")
+        or "uploaded_data" not in st.session_state
+    ):
+        prepared = prepare_data(load_uploaded_data(contents))
+        for key in (*FILTER_STATE_KEYS, "shared_filter_spec"):
+            st.session_state.pop(key, None)
+        st.session_state["uploaded_data"] = prepared
+        st.session_state["uploaded_digest"] = digest
+    st.session_state["uploaded_filename"] = filename
+    return st.session_state["uploaded_data"]
+
+
+def get_uploaded_data() -> pd.DataFrame:
+    """Lấy dữ liệu đang dùng; trang con không tự đọc CSV mặc định."""
+    data = st.session_state.get("uploaded_data")
+    if data is None:
+        st.info(
+            "Hãy tải file CSV tại trang chính để bắt đầu phân tích.",
+            icon=":material/upload_file:",
+        )
+        st.stop()
+    return data
 
 
 def inject_global_css() -> None:
@@ -148,14 +195,6 @@ def render_model_equation(equation: str) -> None:
         st.caption("Mô hình chỉ mang tính minh họa trên bộ dữ liệu hiện tại.")
 
 
-def load_prepared_data(path: str | Path = DATA_PATH) -> pd.DataFrame:
-    try:
-        return prepare_data(load_data(path))
-    except DataValidationError as error:
-        st.error(str(error), icon=":material/error:")
-        st.stop()
-
-
 def _sorted_values(df: pd.DataFrame, column: str) -> list[str]:
     return sorted(df[column].dropna().astype(str).unique().tolist())
 
@@ -200,29 +239,37 @@ def render_sidebar_filters(df: pd.DataFrame) -> tuple[FilterSpec, pd.DataFrame]:
             key="filter_genders",
         )
 
-        salary_range = st.slider(
-            "Khoảng lương",
-            min_value=salary_min,
-            max_value=salary_max,
-            step=5_000,
-            key="filter_salary",
-            **(
-                {}
-                if "filter_salary" in st.session_state
-                else {"value": (salary_min, salary_max)}
-            ),
-        )
-        experience_range = st.slider(
-            "Số năm kinh nghiệm",
-            min_value=experience_min,
-            max_value=experience_max,
-            key="filter_experience",
-            **(
-                {}
-                if "filter_experience" in st.session_state
-                else {"value": (experience_min, experience_max)}
-            ),
-        )
+        if salary_min == salary_max:
+            st.caption(f"Khoảng lương: chỉ có {format_number(salary_min)}.")
+            salary_range = (salary_min, salary_max)
+        else:
+            salary_range = st.slider(
+                "Khoảng lương",
+                min_value=salary_min,
+                max_value=salary_max,
+                step=5_000 if salary_max - salary_min >= 5_000 else 1,
+                key="filter_salary",
+                **(
+                    {}
+                    if "filter_salary" in st.session_state
+                    else {"value": (salary_min, salary_max)}
+                ),
+            )
+        if experience_min == experience_max:
+            st.caption(f"Số năm kinh nghiệm: chỉ có {experience_min}.")
+            experience_range = (experience_min, experience_max)
+        else:
+            experience_range = st.slider(
+                "Số năm kinh nghiệm",
+                min_value=experience_min,
+                max_value=experience_max,
+                key="filter_experience",
+                **(
+                    {}
+                    if "filter_experience" in st.session_state
+                    else {"value": (experience_min, experience_max)}
+                ),
+            )
 
         st.button(
             "Đặt lại bộ lọc",

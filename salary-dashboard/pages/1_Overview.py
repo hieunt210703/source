@@ -5,7 +5,7 @@ from utils.filters import FilterSpec, apply_filters
 from utils.metrics import calculate_kpis
 from utils.ui import (
     format_number,
-    load_prepared_data,
+    get_uploaded_data,
     render_empty_state,
     render_header,
     render_kpi_cards,
@@ -13,7 +13,7 @@ from utils.ui import (
 )
 
 
-data = load_prepared_data()
+data = get_uploaded_data()
 filtered = apply_filters(
     data,
     st.session_state.get("shared_filter_spec", FilterSpec()),

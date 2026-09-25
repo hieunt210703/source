@@ -1,5 +1,7 @@
+from io import BytesIO
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 import streamlit as st
 
@@ -11,7 +13,7 @@ class DataValidationError(ValueError):
 
 
 def validate_data(df: pd.DataFrame) -> pd.DataFrame:
-    """Validate and normalize the fixed employee dataset without mutating input."""
+    """Kiểm tra và chuẩn hóa dữ liệu nhân viên mà không sửa DataFrame đầu vào."""
     missing_columns = [column for column in REQUIRED_COLUMNS if column not in df.columns]
     if missing_columns:
         raise DataValidationError(
@@ -24,7 +26,7 @@ def validate_data(df: pd.DataFrame) -> pd.DataFrame:
     clean = df.loc[:, REQUIRED_COLUMNS].copy()
 
     for column in TEXT_COLUMNS:
-        clean[column] = clean[column].astype("string").str.strip()
+        clean[column] = clean[column].astype("string").str.strip().replace("", pd.NA)
 
     for column in NUMERIC_COLUMNS:
         converted = pd.to_numeric(clean[column], errors="coerce")
@@ -33,6 +35,10 @@ def validate_data(df: pd.DataFrame) -> pd.DataFrame:
             raise DataValidationError(
                 f"Cột {column} có {invalid_count} giá trị không phải số."
             )
+        if not np.isfinite(converted.dropna().to_numpy(dtype=float)).all():
+            raise DataValidationError(f"Cột {column} có giá trị số không hữu hạn.")
+        if ((converted.dropna() % 1) != 0).any():
+            raise DataValidationError(f"Cột {column} cần chứa số nguyên.")
         clean[column] = converted
 
     null_counts = clean.isna().sum()
@@ -71,14 +77,28 @@ def validate_data(df: pd.DataFrame) -> pd.DataFrame:
 
 @st.cache_data(show_spinner=False)
 def load_data(path: str | Path = DATA_PATH) -> pd.DataFrame:
-    """Load and validate the configured CSV file."""
+    """Đọc file CSV mẫu trên đĩa cho script và kiểm thử của dự án."""
     csv_path = Path(path)
     if not csv_path.exists():
         raise DataValidationError(f"Không tìm thấy file dữ liệu: {csv_path}")
 
+    return _read_csv(csv_path)
+
+
+def load_uploaded_data(contents: bytes) -> pd.DataFrame:
+    """Đọc và kiểm tra CSV do người dùng tải lên trong phiên hiện tại."""
+    if not contents:
+        raise DataValidationError("File CSV rỗng.")
+    return _read_csv(BytesIO(contents))
+
+
+def _read_csv(source: str | Path | BytesIO) -> pd.DataFrame:
     try:
-        raw = pd.read_csv(csv_path)
+        raw = pd.read_csv(
+            source,
+            encoding="utf-8-sig",
+            na_values=["?", ".", "None"],
+        )
     except (OSError, UnicodeError, pd.errors.ParserError) as error:
         raise DataValidationError(f"Không thể đọc file CSV: {error}") from error
-
     return validate_data(raw)

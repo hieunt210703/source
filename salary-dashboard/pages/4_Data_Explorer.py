@@ -6,14 +6,14 @@ from utils.config import REQUIRED_COLUMNS
 from utils.filters import FilterSpec, apply_filters
 from utils.ui import (
     format_number,
-    load_prepared_data,
+    get_uploaded_data,
     render_empty_state,
     render_header,
     render_page_heading,
 )
 
 
-data = load_prepared_data()
+data = get_uploaded_data()
 filtered = apply_filters(
     data,
     st.session_state.get("shared_filter_spec", FilterSpec()),

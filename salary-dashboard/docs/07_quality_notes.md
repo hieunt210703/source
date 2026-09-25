@@ -3,7 +3,7 @@
 ## Hiệu năng
 
 - Dataset 10.000 dòng phù hợp xử lý trong bộ nhớ.
-- `st.cache_data` được dùng cho bước đọc/validate CSV.
+- File tải lên được kiểm tra một lần khi nội dung thay đổi và giữ trong `st.session_state` của phiên; CSV mẫu cho script/kiểm thử vẫn dùng `st.cache_data`.
 - Các biểu đồ và mô hình chỉ tính lại khi trạng thái widget thay đổi.
 
 Benchmark ngày 24/09/2026 trên môi trường phát triển hiện tại, lấy trung vị 10 lần chạy (hồi quy 5 lần):
@@ -21,6 +21,7 @@ Có thể tái chạy bằng `python scripts/benchmark_core.py`. Kết quả ph�
 ## Trạng thái lỗi
 
 - Loader trả thông báo tiếng Việt cho file thiếu, parse lỗi, thiếu schema, null, ID trùng hoặc miền số không hợp lệ.
+- Dashboard không hiển thị trước khi có CSV tải lên hợp lệ; đổi file đặt lại bộ lọc cũ.
 - Tổ hợp filter rỗng có empty state thay vì biểu đồ lỗi.
 - Hồi quy không chạy khi dưới 20 bản ghi hoặc không có biến thiên.
 

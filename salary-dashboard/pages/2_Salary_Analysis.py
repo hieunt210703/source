@@ -4,7 +4,7 @@ from utils.charts import comparison_bar, salary_boxplot
 from utils.config import DIMENSION_LABELS
 from utils.filters import FilterSpec, apply_filters
 from utils.ui import (
-    load_prepared_data,
+    get_uploaded_data,
     render_analysis_note,
     render_empty_state,
     render_header,
@@ -13,7 +13,7 @@ from utils.ui import (
 )
 
 
-data = load_prepared_data()
+data = get_uploaded_data()
 filtered = apply_filters(
     data,
     st.session_state.get("shared_filter_spec", FilterSpec()),

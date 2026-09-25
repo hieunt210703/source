@@ -15,7 +15,7 @@ Xây dựng dashboard Streamlit giúp khám phá dữ liệu lương, so sánh n
 
 ## Trong phạm vi
 
-CSV cố định, kiểm tra schema, phân tích mô tả, Plotly, bộ lọc dùng chung, tìm kiếm, CSV export, Pearson correlation, một hồi quy tuyến tính đơn biến, kiểm thử và tài liệu.
+Tải CSV nhân viên theo schema quy định và kiểm tra dữ liệu trước khi hiển thị, phân tích mô tả, Plotly, bộ lọc dùng chung, tìm kiếm, CSV export, Pearson correlation, một hồi quy tuyến tính đơn biến, kiểm thử và tài liệu.
 
 ## Ngoài phạm vi
 

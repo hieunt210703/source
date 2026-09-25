@@ -16,6 +16,6 @@
 ## Biến dẫn xuất
 
 - `Experience_Group`: `0-2`, `3-5`, `6-10`, `11-20`, `21-30`, `31+`.
-- `Age_Group`: `21-29`, `30-39`, `40-49`, `50-60`.
+- `Age_Group`: `15-20`, `21-29`, `30-39`, `40-49`, `50-60`, `61-100` (chỉ hiển thị nhóm có dữ liệu).
 
 Hai biến dẫn xuất chỉ tồn tại trong bộ nhớ để phân tích; CSV nguồn không bị ghi đè.

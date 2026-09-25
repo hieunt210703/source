@@ -263,7 +263,7 @@ def age_scatter(df: pd.DataFrame) -> go.Figure:
 
 def age_group_bar(df: pd.DataFrame) -> go.Figure:
     summary = (
-        df.groupby("Age_Group", observed=False)["Salary"]
+        df.groupby("Age_Group", observed=True)["Salary"]
         .agg(mean="mean", median="median", count="size")
         .reset_index()
     )

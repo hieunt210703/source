@@ -12,7 +12,7 @@ from utils.modeling import ModelingError, fit_simple_linear_regression, pearson_
 from utils.ui import (
     format_number,
     format_pvalue,
-    load_prepared_data,
+    get_uploaded_data,
     render_analysis_note,
     render_empty_state,
     render_header,
@@ -23,7 +23,7 @@ from utils.ui import (
 )
 
 
-data = load_prepared_data()
+data = get_uploaded_data()
 filtered = apply_filters(
     data,
     st.session_state.get("shared_filter_spec", FilterSpec()),
@@ -108,4 +108,7 @@ with age_left:
     st.plotly_chart(age_scatter(filtered), width="stretch", config={"displayModeBar": False})
 with age_right:
     st.plotly_chart(age_group_bar(filtered), width="stretch", config={"displayModeBar": False})
-st.caption("Tuổi và số năm kinh nghiệm có tương quan rất cao trong dữ liệu này; không diễn giải chúng như hai tác nhân độc lập.")
+st.caption(
+    "Mối liên hệ giữa tuổi, kinh nghiệm và lương phụ thuộc vào file đã tải; "
+    "các biểu đồ này không chứng minh quan hệ nhân quả."
+)

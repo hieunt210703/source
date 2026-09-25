@@ -1,6 +1,6 @@
 # Employee Salary Analytics Dashboard
 
-Ứng dụng Streamlit phân tích bộ dữ liệu 10.000 nhân viên, cung cấp KPI, biểu đồ tương tác, bộ lọc dùng chung, tra cứu/xuất CSV và một mô hình hồi quy tuyến tính đơn biến minh họa mối liên hệ giữa số năm kinh nghiệm và mức lương.
+Ứng dụng Streamlit phân tích file CSV nhân viên do người dùng tải lên, cung cấp KPI, biểu đồ tương tác, bộ lọc dùng chung, tra cứu/xuất CSV và một mô hình hồi quy tuyến tính đơn biến minh họa mối liên hệ giữa số năm kinh nghiệm và mức lương. Dashboard chỉ hiện sau khi file được kiểm tra hợp lệ.
 
 ## Chức năng
 
@@ -22,6 +22,12 @@ python -m streamlit run app.py
 
 Mở `http://localhost:8501` nếu trình duyệt không tự mở.
 
+## Tải dữ liệu
+
+Tại màn hình đầu, chọn một file CSV mã hóa UTF-8, phân tách bằng dấu phẩy. File cần có các cột `Employee_ID`, `Name`, `Age`, `Gender`, `Department`, `Job_Title`, `Experience_Years`, `Education_Level`, `Location`, `Salary`; các cột thêm sẽ không tham gia phân tích. Dữ liệu không được thiếu giá trị ở các cột bắt buộc; `Employee_ID` phải duy nhất. Bốn cột số cần là số nguyên, `Age` từ 15 đến 100, `Experience_Years` không âm và không lớn hơn `Age`, `Salary` phải dương.
+
+Sau khi tải thành công, cả bốn trang dùng cùng dữ liệu trong phiên hiện tại. Có thể mở mục **Tải hoặc thay file CSV nhân viên** ở đầu trang để đổi file; khi đổi file, bộ lọc sẽ được đặt lại. Dữ liệu tải lên chỉ giữ trong phiên Streamlit, không ghi vào repository. File `data/Employers_data.csv` vẫn dùng cho script và kiểm thử, không tự hiển thị khi mở ứng dụng.
+
 ## Kiểm thử
 
 ```powershell
@@ -30,7 +36,7 @@ python scripts/audit_data.py
 python scripts/benchmark_core.py
 ```
 
-Test bao phủ schema loader, KPI chuẩn, filter kết hợp, nhóm tuổi/kinh nghiệm, biểu đồ, Pearson correlation, hồi quy tuyến tính, script audit/benchmark và smoke test trang mặc định.
+Test bao phủ schema loader, luồng tải file, KPI chuẩn, filter kết hợp, nhóm tuổi/kinh nghiệm, biểu đồ, Pearson correlation, hồi quy tuyến tính, script audit/benchmark và bốn trang ứng dụng.
 
 ## Cấu trúc
 
