@@ -83,5 +83,5 @@ st.dataframe(
 )
 st.warning(
     "Dữ liệu có tên cá nhân và thuộc tính lương. Cần xem xét ẩn định danh trước khi chia sẻ công khai.",
-    icon="🔒",
+    icon=":material/lock:",
 )

@@ -5,7 +5,7 @@ from utils.ui import inject_global_css, load_prepared_data, render_sidebar_filte
 
 st.set_page_config(
     page_title="Phân tích lương nhân viên",
-    page_icon="📊",
+    page_icon=":material/analytics:",
     layout="wide",
     initial_sidebar_state="auto",
 )

@@ -7,30 +7,63 @@ from utils.metrics import salary_summary_by
 from utils.modeling import LinearModelResult
 
 
+def _format_vn(value: float | int, decimals: int = 0) -> str:
+    formatted = f"{value:,.{decimals}f}"
+    return formatted.replace(",", "X").replace(".", ",").replace("X", ".")
+
+
 def _style_figure(figure: go.Figure, height: int = 390) -> go.Figure:
     figure.update_layout(
+        autosize=True,
+        colorway=CHART_COLORS,
         height=height,
-        margin=dict(l=18, r=18, t=62, b=18),
+        margin=dict(l=20, r=20, t=64, b=22),
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="#FFFFFF",
-        font=dict(family="Inter, Segoe UI, sans-serif", color=COLORS["navy"], size=13),
-        title=dict(font=dict(size=18, color=COLORS["navy"]), x=0.01, xanchor="left"),
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
-        hoverlabel=dict(bgcolor="#FFFFFF", font_color=COLORS["navy"]),
+        font=dict(
+            family="IBM Plex Sans, Segoe UI, sans-serif",
+            color=COLORS["navy"],
+            size=12,
+        ),
+        title=dict(
+            font=dict(size=17, color=COLORS["navy"], weight=700),
+            x=0.01,
+            xanchor="left",
+            y=0.97,
+            yanchor="top",
+        ),
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1,
+            font=dict(size=11),
+        ),
+        hoverlabel=dict(
+            bgcolor="#FFFFFF",
+            bordercolor=COLORS["border"],
+            font_color=COLORS["navy"],
+            font_family="IBM Plex Sans, Segoe UI, sans-serif",
+        ),
+        hovermode="closest",
+        separators=",.",
     )
     figure.update_xaxes(
         gridcolor=COLORS["grid"],
         linecolor=COLORS["border"],
         zeroline=False,
         title_font=dict(size=12, color=COLORS["muted"]),
-        tickfont=dict(color=COLORS["muted"]),
+        tickfont=dict(color=COLORS["muted"], size=11),
+        automargin=True,
     )
     figure.update_yaxes(
         gridcolor=COLORS["grid"],
         linecolor=COLORS["border"],
         zeroline=False,
         title_font=dict(size=12, color=COLORS["muted"]),
-        tickfont=dict(color=COLORS["muted"]),
+        tickfont=dict(color=COLORS["muted"], size=11),
+        automargin=True,
     )
     return figure
 
@@ -50,9 +83,10 @@ def salary_histogram(df: pd.DataFrame) -> go.Figure:
         x=mean_salary,
         line_dash="dash",
         line_color=COLORS["teal"],
-        annotation_text=f"Trung bình {mean_salary:,.0f}",
+        annotation_text=f"Trung bình {_format_vn(mean_salary)}",
         annotation_position="top right",
     )
+    figure.update_yaxes(title="Số nhân viên")
     return _style_figure(figure, height=410)
 
 
@@ -72,7 +106,7 @@ def department_donut(df: pd.DataFrame) -> go.Figure:
         hovertemplate="%{label}<br>%{value:,.0f} nhân viên<br>%{percent}<extra></extra>",
     )
     figure.add_annotation(
-        text=f"<b>{len(df):,}</b><br><span style='font-size:11px'>nhân viên</span>",
+        text=f"<b>{_format_vn(len(df))}</b><br><span style='font-size:11px'>nhân viên</span>",
         x=0.28,
         y=0.5,
         showarrow=False,

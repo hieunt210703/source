@@ -1,5 +1,3 @@
-from html import escape
-
 import streamlit as st
 
 from utils.charts import (
@@ -15,9 +13,11 @@ from utils.ui import (
     format_number,
     format_pvalue,
     load_prepared_data,
+    render_analysis_note,
     render_empty_state,
     render_header,
     render_kpi_cards,
+    render_model_equation,
     render_page_heading,
     render_section_heading,
 )
@@ -65,7 +65,10 @@ with right:
 
 render_section_heading("Hồi quy tuyến tính đơn biến")
 if model_error or model_result is None or pearson_result is None:
-    st.warning(model_error or "Không thể xây dựng mô hình với bộ lọc hiện tại.", icon="⚠️")
+    st.warning(
+        model_error or "Không thể xây dựng mô hình với bộ lọc hiện tại.",
+        icon=":material/warning:",
+    )
 else:
     pearson_r, p_value = pearson_result
     equation = (
@@ -75,16 +78,7 @@ else:
     )
     equation_column, metrics_column = st.columns([1.55, 3.45], gap="small")
     with equation_column:
-        st.markdown(
-            f"""
-            <div class="equation-panel">
-              <div class="eyeline">PHƯƠNG TRÌNH TRÊN TẬP TRAIN</div>
-              <div class="equation">{escape(equation)}</div>
-              <div class="subnote">Mô hình chỉ mang tính minh họa trên bộ dữ liệu hiện tại.</div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+        render_model_equation(equation)
     with metrics_column:
         render_kpi_cards(
             [
@@ -102,9 +96,10 @@ else:
         width="stretch",
         config={"displayModeBar": False},
     )
-    st.markdown(
-        '<div class="analysis-note">Mô hình được fit trên 80% dữ liệu và đánh giá trên 20% dữ liệu còn lại với <code>random_state=42</code>. Kết quả mô tả liên hệ tuyến tính, không chứng minh kinh nghiệm là nguyên nhân trực tiếp quyết định lương.</div>',
-        unsafe_allow_html=True,
+    render_analysis_note(
+        "Mô hình được fit trên 80% dữ liệu và đánh giá trên 20% dữ liệu còn "
+        "lại với random_state=42. Kết quả mô tả liên hệ tuyến tính, không "
+        "chứng minh kinh nghiệm là nguyên nhân trực tiếp quyết định lương."
     )
 
 render_section_heading("Độ tuổi và mức lương")

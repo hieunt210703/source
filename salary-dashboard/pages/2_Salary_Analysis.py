@@ -5,6 +5,7 @@ from utils.config import DIMENSION_LABELS
 from utils.filters import FilterSpec, apply_filters
 from utils.ui import (
     load_prepared_data,
+    render_analysis_note,
     render_empty_state,
     render_header,
     render_page_heading,
@@ -41,17 +42,21 @@ for index in range(0, len(dimensions), 2):
             )
 
 render_section_heading("Độ phân tán và ngoại lệ")
-box_dimension = st.selectbox(
+box_dimension = st.segmented_control(
     "Chọn chiều phân nhóm cho box plot",
     dimensions,
+    default=dimensions[0],
+    required=True,
     format_func=lambda value: DIMENSION_LABELS[value],
+    width="stretch",
+    wrap=False,
 )
 st.plotly_chart(
-    salary_boxplot(filtered, box_dimension),
+    salary_boxplot(filtered, box_dimension or dimensions[0]),
     width="stretch",
     config={"displayModeBar": False},
 )
-st.markdown(
-    '<div class="analysis-note">Đường giữa hộp là trung vị; hộp thể hiện Q1–Q3. Điểm nằm ngoài râu hộp là ứng viên ngoại lệ theo từng nhóm, không tự động bị loại khỏi dữ liệu.</div>',
-    unsafe_allow_html=True,
+render_analysis_note(
+    "Đường giữa hộp là trung vị; hộp thể hiện Q1–Q3. Điểm nằm ngoài râu hộp "
+    "là ứng viên ngoại lệ theo từng nhóm, không tự động bị loại khỏi dữ liệu."
 )

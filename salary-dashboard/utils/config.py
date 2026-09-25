@@ -36,7 +36,7 @@ DIMENSION_LABELS = {
 }
 
 COLORS = {
-    "navy": "#0B1739",
+    "navy": "#07152F",
     "blue": "#1769E0",
     "blue_light": "#5FA8F5",
     "teal": "#079A92",
@@ -44,9 +44,9 @@ COLORS = {
     "green": "#76B947",
     "purple": "#6D5BD0",
     "gray": "#8A98AE",
-    "border": "#DCE5F0",
-    "grid": "#E9EFF6",
-    "muted": "#5F6F89",
+    "border": "#D8E2EF",
+    "grid": "#E8EEF6",
+    "muted": "#52647F",
 }
 
 CHART_COLORS = [

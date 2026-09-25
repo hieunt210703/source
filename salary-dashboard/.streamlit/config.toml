@@ -1,12 +1,37 @@
 [theme]
 base = "light"
 primaryColor = "#1769E0"
-backgroundColor = "#F7F9FC"
-secondaryBackgroundColor = "#FFFFFF"
-textColor = "#0B1739"
-font = "sans-serif"
-baseRadius = "medium"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F4F7FB"
+textColor = "#07152F"
+linkColor = "#1769E0"
+borderColor = "#D8E2EF"
+dataframeBorderColor = "#D8E2EF"
+dataframeHeaderBackgroundColor = "#F4F7FB"
+font = "'IBM Plex Sans':https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+headingFont = "'IBM Plex Sans':https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@600;700&display=swap"
+baseFontSize = 14
+baseFontWeight = 400
+headingFontSizes = ["36px", "24px", "19px", "16px", "14px", "12px"]
+headingFontWeights = [700, 700, 650, 600, 600, 600]
+baseRadius = "10px"
+buttonRadius = "10px"
 showWidgetBorder = true
+showSidebarBorder = true
+linkUnderline = false
+chartCategoricalColors = ["#1769E0", "#079A92", "#5FA8F5", "#F4A621", "#6D5BD0", "#76B947", "#8A98AE"]
+blueColor = "#1769E0"
+greenColor = "#079A92"
+orangeColor = "#F4A621"
+violetColor = "#6D5BD0"
+grayColor = "#52647F"
+
+[theme.sidebar]
+backgroundColor = "#F4F7FB"
+secondaryBackgroundColor = "#FFFFFF"
+textColor = "#07152F"
+borderColor = "#D8E2EF"
+primaryColor = "#1769E0"
 
 [browser]
 gatherUsageStats = false
